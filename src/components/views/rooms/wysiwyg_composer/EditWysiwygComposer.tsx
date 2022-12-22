@@ -24,16 +24,18 @@ import { useWysiwygEditActionHandler } from "./hooks/useWysiwygEditActionHandler
 import { useEditing } from "./hooks/useEditing";
 import { useInitialContent } from "./hooks/useInitialContent";
 import { ComposerContext, getDefaultContextValue } from "./ComposerContext";
+import { ComposerFunctions } from "./types";
 
 interface ContentProps {
     disabled: boolean;
+    composerFunctions: ComposerFunctions;
 }
 
 const Content = forwardRef<HTMLElement, ContentProps>(function Content(
-    { disabled }: ContentProps,
+    { disabled, composerFunctions }: ContentProps,
     forwardRef: RefObject<HTMLElement>,
 ) {
-    useWysiwygEditActionHandler(disabled, forwardRef);
+    useWysiwygEditActionHandler(disabled, forwardRef, composerFunctions);
     return null;
 });
 
@@ -65,9 +67,9 @@ export default function EditWysiwygComposer({ editorStateTransfer, className, ..
                 onSend={editMessage}
                 {...props}
             >
-                {(ref) => (
+                {(ref, composerFunctions) => (
                     <>
-                        <Content disabled={props.disabled} ref={ref} />
+                        <Content disabled={props.disabled} ref={ref} composerFunctions={composerFunctions} />
                         <EditionButtons
                             onCancelClick={endEditing}
                             onSaveClick={editMessage}
