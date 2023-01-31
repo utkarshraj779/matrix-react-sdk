@@ -119,7 +119,7 @@ jobs:
                   path: webapp
 
             - name: Run Cypress tests
-              uses: cypress-io/github-action@v5.0.2
+              uses: cypress-io/github-action@v5.0.6
               with:
                   # The built-in Electron runner seems to grind to a halt trying
                   # to run the tests, so use chrome.
